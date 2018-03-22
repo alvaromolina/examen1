@@ -5,7 +5,25 @@
     <title>Title</title>
 </head>
 <body>
-    <p th:utext="#{variableTexto}"></p>
+    <a href="/newPost">Nuevo Post</a>
+    <h1>Posts</h1>
+    <table>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Post
+            </th>
+        </tr>
+        <tr th:each="post : ${postList}">
+            <td th:text="${post.id}">
+            </td>
+            <td th:text="${post.text}">
+            </td>
+        </tr>
+
+    </table>
 
 </body>
 </html>
