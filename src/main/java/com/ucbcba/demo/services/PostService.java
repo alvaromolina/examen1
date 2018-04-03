@@ -6,4 +6,9 @@ public interface PostService {
 
     Iterable<Post> listAllPosts();
 
+    void savePost(Post post);
+
+    Post getPost(Integer id);
+
+
 }

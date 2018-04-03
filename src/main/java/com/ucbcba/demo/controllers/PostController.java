@@ -32,15 +32,17 @@ public class PostController {
         return "newPost";
     }
 
-    @RequestMapping("/savePost")
-    String save() {
-        return "Aca voy a guardar el post";
+    @RequestMapping(value = "/post", method = RequestMethod.POST)
+    String save(Post post) {
+        postService.savePost(post);
+        return "redirect:/posts";
     }
 
     @RequestMapping("/post/{id}")
-    String show(@PathVariable Integer id) {
-        // Recuperar de la BD el post con Id = id
-        return "Aca voya mostrar el post" + id;
+    String show(@PathVariable Integer id, Model model) {
+        Post post = postService.getPost(id);
+        model.addAttribute("post", post);
+        return "show";
     }
 
     @RequestMapping("/editPost/{id}")
