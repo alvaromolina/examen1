@@ -46,8 +46,10 @@ public class PostController {
     }
 
     @RequestMapping("/editPost/{id}")
-    String editPost(@PathVariable Integer id) {
-        return "Aca voy a editar el post" + id;
+    String editPost(@PathVariable Integer id, Model model) {
+        Post post = postService.getPost(id);
+        model.addAttribute("post", post);
+        return "editPost";
     }
 
     @RequestMapping("/post/delete")
