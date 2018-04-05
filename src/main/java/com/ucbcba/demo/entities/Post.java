@@ -14,6 +14,10 @@ public class Post {
     @NotNull
     private String text;
 
+    @ManyToOne
+    @JoinColumn(name = "post_category_id")
+    private PostCategory postCategory;
+
     public Integer getId() {
         return id;
     }
@@ -29,5 +33,10 @@ public class Post {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+
+    public PostCategory getPostCategory() {
+        return postCategory;
     }
 }
