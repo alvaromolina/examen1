@@ -32,4 +32,9 @@ public class PostServiceImpl implements PostService {
     public Post getPost(Integer id) {
         return postRepository.findById(id).get();
     }
+
+    @Override
+    public void deletePost(Integer id) {
+        postRepository.deleteById(id);;
+    }
 }

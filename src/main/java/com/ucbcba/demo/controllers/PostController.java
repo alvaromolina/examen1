@@ -52,8 +52,9 @@ public class PostController {
         return "editPost";
     }
 
-    @RequestMapping("/post/delete")
-    String delete() {
-        return "Hello, World";
+    @RequestMapping("/deletePost/{id}")
+    String delete(@PathVariable Integer id) {
+        postService.deletePost(id);
+        return "redirect:/posts";
     }
 }
