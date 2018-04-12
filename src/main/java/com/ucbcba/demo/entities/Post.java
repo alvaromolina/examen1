@@ -1,6 +1,8 @@
 package com.ucbcba.demo.entities;
 
 
+import org.hibernate.annotations.ColumnDefault;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -14,9 +16,16 @@ public class Post {
     @NotNull
     private String text;
 
+    @NotNull
+    @Column(columnDefinition="int(11) default 0")
+    private Integer likes=0;
+
     @ManyToOne
     @JoinColumn(name = "post_category_id")
     private PostCategory postCategory;
+
+    public Post() {
+    }
 
     public Integer getId() {
         return id;
@@ -38,5 +47,17 @@ public class Post {
 
     public PostCategory getPostCategory() {
         return postCategory;
+    }
+
+    public Integer getLikes() {
+        return likes;
+    }
+
+    public void setLikes(Integer likes) {
+        this.likes = likes;
+    }
+
+    public void setPostCategory(PostCategory postCategory) {
+        this.postCategory = postCategory;
     }
 }

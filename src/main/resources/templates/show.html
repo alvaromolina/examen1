@@ -10,7 +10,8 @@
 
 <b>Id:</b> <p th:text="${post.id}"></p>
 <b>Texto:</b> <p th:text="${post.text}"></p>
-<b>Likes:</b>  10
+<b>Categoria:</b> <p th:text="${post.postCategory.name}"></p>
+<b>Likes:</b>  <p th:text="${post.likes}"></p>
 <a th:href="${'/like/' + post.id}">Like</a>
 
 </body>

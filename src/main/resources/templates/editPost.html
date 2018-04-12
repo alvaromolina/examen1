@@ -10,6 +10,12 @@
     <input type="hidden" name="id" th:value="${post.id}">
     <textarea name="text" th:text="${post.text}" id="text" cols="30" rows="10">
     </textarea>
+    <select name="postCategory" id="postCategory">
+        <option th:each="postCategory : ${postCategories}"
+                th:value="${postCategory.id}"
+                th:text="${postCategory.name}"
+                th:selected="(${postCategory.id} == ${post.postCategory.id})"></option>
+    </select>
     <br>
     <input type="submit" value="Guardar"></input>
 </form>

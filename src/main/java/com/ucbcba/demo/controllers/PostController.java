@@ -1,6 +1,8 @@
 package com.ucbcba.demo.controllers;
 
 import com.ucbcba.demo.entities.Post;
+import com.ucbcba.demo.entities.PostCategory;
+import com.ucbcba.demo.services.PostCategoryService;
 import com.ucbcba.demo.services.PostService;
 import com.ucbcba.demo.services.PostServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +15,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class PostController {
     private PostService postService;
+    private PostCategoryService postCategoryService;
 
     @Autowired
     public void setPostService(PostService productService) {
         this.postService = productService;
+    }
+
+    @Autowired
+    public void setPostCategoryService(PostCategoryService postCategoryService) {
+        this.postCategoryService = postCategoryService;
     }
 
     @RequestMapping(value = "/posts", method = RequestMethod.GET)
@@ -28,7 +36,9 @@ public class PostController {
     }
 
     @RequestMapping("/newPost")
-    String newPost() {
+    String newPost(Model model) {
+        Iterable<PostCategory> postCategories = postCategoryService.listAllPostCategorys();
+        model.addAttribute("postCategories", postCategories);
         return "newPost";
     }
 
@@ -49,6 +59,8 @@ public class PostController {
     String editPost(@PathVariable Integer id, Model model) {
         Post post = postService.getPost(id);
         model.addAttribute("post", post);
+        Iterable<PostCategory> postCategories = postCategoryService.listAllPostCategorys();
+        model.addAttribute("postCategories", postCategories);
         return "editPost";
     }
 
@@ -56,5 +68,13 @@ public class PostController {
     String delete(@PathVariable Integer id) {
         postService.deletePost(id);
         return "redirect:/posts";
+    }
+
+    @RequestMapping("/like/{id}")
+    String like(@PathVariable Integer id) {
+        Post post = postService.getPost(id);
+        post.setLikes(post.getLikes()+1);
+        postService.savePost(post);
+        return "redirect:/post/"+post.getId();
     }
 }
