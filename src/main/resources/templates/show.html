@@ -13,6 +13,16 @@
 <b>Categoria:</b> <p th:text="${post.postCategory.name}"></p>
 <b>Likes:</b>  <p th:text="${post.likes}"></p>
 <a th:href="${'/like/' + post.id}">Like</a>
+<form action="/comment" method="POST">
+    <input type="hidden" name="post" th:value="${post.id}">
+    <textarea name="text" id="text" cols="30" rows="10"></textarea>
+    <br>
+    <input type="submit" value="Guardar"></input>
+</form>
+<p th:each="comment : ${post.comments}" >
+    <span th:text="${comment.text}"></span>
+    <a th:href="${'/commentlike/' + comment.id}">like</a>
+</p>
 
 </body>
 </html>

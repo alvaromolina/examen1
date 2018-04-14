@@ -1,7 +1,9 @@
 package com.ucbcba.demo.controllers;
 
+import com.ucbcba.demo.entities.Comment;
 import com.ucbcba.demo.entities.Post;
 import com.ucbcba.demo.entities.PostCategory;
+import com.ucbcba.demo.services.CommentService;
 import com.ucbcba.demo.services.PostCategoryService;
 import com.ucbcba.demo.services.PostService;
 import com.ucbcba.demo.services.PostServiceImpl;

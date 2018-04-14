@@ -5,6 +5,7 @@ import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 public class Post {
@@ -23,6 +24,9 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "post_category_id")
     private PostCategory postCategory;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    List<Comment> comments;
 
     public Post() {
     }
@@ -59,5 +63,12 @@ public class Post {
 
     public void setPostCategory(PostCategory postCategory) {
         this.postCategory = postCategory;
+    }
+
+    public void setComments(List<Comment> comments){
+        this.comments = comments;
+    }
+    public List<Comment> getComments(){
+        return this.comments;
     }
 }
