@@ -3,10 +3,7 @@ package com.ucbcba.demo.controllers;
 import com.ucbcba.demo.entities.Comment;
 import com.ucbcba.demo.entities.Post;
 import com.ucbcba.demo.entities.PostCategory;
-import com.ucbcba.demo.services.CommentService;
-import com.ucbcba.demo.services.PostCategoryService;
-import com.ucbcba.demo.services.PostService;
-import com.ucbcba.demo.services.PostServiceImpl;
+import com.ucbcba.demo.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +15,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class PostController {
     private PostService postService;
     private PostCategoryService postCategoryService;
+    private UserService userService;
+
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 
     @Autowired
     public void setPostService(PostService productService) {
@@ -53,6 +56,7 @@ public class PostController {
     @RequestMapping("/post/{id}")
     String show(@PathVariable Integer id, Model model) {
         Post post = postService.getPost(id);
+        model.addAttribute("userList", userService.listAllUsers());
         model.addAttribute("post", post);
         return "show";
     }

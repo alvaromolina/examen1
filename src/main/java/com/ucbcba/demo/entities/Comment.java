@@ -17,6 +17,10 @@ public class Comment {
     @JoinColumn(name = "post_id")
     private Post post;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @Column(columnDefinition = "int(11) default 0")
     private Integer likes=0;
 
@@ -50,5 +54,13 @@ public class Comment {
 
     public void setLikes(Integer likes) {
         this.likes = likes;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

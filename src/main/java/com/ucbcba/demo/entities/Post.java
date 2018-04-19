@@ -18,6 +18,9 @@ public class Post {
     private String text;
 
     @NotNull
+    private boolean showPost;
+
+    @NotNull
     @Column(columnDefinition="int(11) default 0")
     private Integer likes=0;
 
@@ -70,5 +73,13 @@ public class Post {
     }
     public List<Comment> getComments(){
         return this.comments;
+    }
+
+    public boolean isShowPost() {
+        return showPost;
+    }
+
+    public void setShowPost(boolean showPost) {
+        this.showPost = showPost;
     }
 }

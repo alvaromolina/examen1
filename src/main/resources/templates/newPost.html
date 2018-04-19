@@ -13,6 +13,10 @@
     <select name="postCategory" id="postCategory">
         <option th:each="postCategory : ${postCategories}" th:value="${postCategory.id}" th:text="${postCategory.name}"></option>
     </select>
+    <select name="showPost" id="showPost">
+        <option value="1" >SI</option>
+        <option value="0" >NO</option>
+    </select>
     <input type="submit" value="Guardar"></input>
 </form>
 

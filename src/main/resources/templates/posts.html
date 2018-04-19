@@ -22,7 +22,7 @@
                 Opciones
             </th>
         </tr>
-        <tr th:each="post : ${postList}">
+        <tr th:each="post : ${postList}" th:if="${post.showPost}">
             <td th:text="${post.id}">
             </td>
             <td th:text="${post.text}">

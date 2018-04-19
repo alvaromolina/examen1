@@ -17,6 +17,11 @@
                 th:selected="(${postCategory.id} == ${post.postCategory.id})"></option>
     </select>
     <br>
+    <select name="showPost" id="showPost">
+        <option value="1" th:selected="${post.showPost}">SI</option>
+        <option value="0" th:selected="${post.showPost} == false">NO</option>
+    </select>
+    <br>
     <input type="submit" value="Guardar"></input>
 </form>
 
