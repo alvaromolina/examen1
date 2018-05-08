@@ -3,8 +3,11 @@ package com.ucbcba.demo.controllers;
 import com.ucbcba.demo.entities.Comment;
 import com.ucbcba.demo.entities.Post;
 import com.ucbcba.demo.entities.PostCategory;
+import org.springframework.security.core.userdetails.User;
 import com.ucbcba.demo.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,7 +38,9 @@ public class PostController {
     @RequestMapping(value = "/posts", method = RequestMethod.GET)
     public String list(Model model) {
         Iterable<Post> postList = postService.listAllPosts();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("variableTexto","Hello world");
+        model.addAttribute("username", ((User)auth.getPrincipal()).getUsername());
         model.addAttribute("postList",postList);
         return "posts";
     }
