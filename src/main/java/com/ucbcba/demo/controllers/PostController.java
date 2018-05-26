@@ -13,6 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
 public class PostController {
@@ -35,12 +38,25 @@ public class PostController {
         this.postCategoryService = postCategoryService;
     }
 
+
     @RequestMapping(value = "/posts", method = RequestMethod.GET)
-    public String list(Model model) {
-        Iterable<Post> postList = postService.listAllPosts();
+    public String list(@RequestParam(value = "text", required = false, defaultValue="") String text , Model model) {
+
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User u = (org.springframework.security.core.userdetails.User)auth.getPrincipal();
+        com.ucbcba.demo.entities.User user = userService.findByUsername(u.getUsername());
+
+        Iterable<Post> postList;
+        if(text.equals("")){
+            postList = postService.listAllPosts();
+
+        }else{
+            System.out.println("filtro" +text);
+
+            postList = postService.getPostsLikeText(text);
+        }
         model.addAttribute("variableTexto","Hello world");
-        model.addAttribute("username", ((User)auth.getPrincipal()).getUsername());
         model.addAttribute("postList",postList);
         return "posts";
     }
@@ -50,6 +66,22 @@ public class PostController {
         Iterable<PostCategory> postCategories = postCategoryService.listAllPostCategorys();
         model.addAttribute("postCategories", postCategories);
         return "newPost";
+    }
+
+
+    @RequestMapping(value = "/buscar/{category_id}")
+    String buscar(@PathVariable Integer category_id, Model model) {
+        PostCategory postCategory = postCategoryService.getPostCategory(category_id);
+        List<Post> posts = postCategory.getPosts();
+        model.addAttribute("posts",posts);
+        return "buscar";
+    }
+
+    @RequestMapping(value = "/buscarTexto/{text}")
+    String buscarByTexto(@PathVariable String text, Model model) {
+        Iterable<Post> postList = postService.getPostsLikeText(text);
+        model.addAttribute("postList",postList);
+        return "buscar";
     }
 
     @RequestMapping(value = "/post", method = RequestMethod.POST)

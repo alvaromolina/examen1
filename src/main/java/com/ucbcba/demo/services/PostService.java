@@ -12,4 +12,8 @@ public interface PostService {
 
     void deletePost(Integer id);
 
+    Iterable<Post> getPostsLikeText(String text);
+
+
+
 }

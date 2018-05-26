@@ -1,10 +1,8 @@
 package com.ucbcba.demo.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 public class PostCategory {
@@ -15,6 +13,9 @@ public class PostCategory {
 
     @NotNull
     private String name;
+
+    @OneToMany(mappedBy = "postCategory", cascade = CascadeType.ALL)
+    List<Post> posts;
 
 
     public Integer getId() {
@@ -32,4 +33,13 @@ public class PostCategory {
     public void setName(String name) {
         this.name = name;
     }
+
+
+    public List<Post> getPosts(){
+       return  this.posts;
+    }
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
+
 }

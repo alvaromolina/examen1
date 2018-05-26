@@ -37,4 +37,9 @@ public class PostServiceImpl implements PostService {
     public void deletePost(Integer id) {
         postRepository.deleteById(id);;
     }
+
+    @Override
+    public Iterable<Post> getPostsLikeText(String text) {
+        return postRepository.getPostsLikeText(text);
+    }
 }

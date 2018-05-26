@@ -3,9 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script>
+        function changeText(){
+            document.getElementById("myForm").submit();
+        }
+    </script>
 </head>
 <body>
-    <p th:text="${username}"></p>
+
+    <form action="/posts" id="myForm" method="get">
+        <input type="text" id="text" name="text" onchange="changeText();">
+    </form>
+
     <a href="/newPost">Nuevo Post</a>
     <h1>Posts</h1>
     <table>
